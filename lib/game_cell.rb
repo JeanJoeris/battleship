@@ -15,7 +15,7 @@ class GameCell
   end
 
   def add(data)
-    @content = data if @content == nil
+    @content = data unless @content
   end
 
 end

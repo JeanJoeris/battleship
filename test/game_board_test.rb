@@ -22,4 +22,8 @@ class GameBoardTest < Minitest::Test
     assert_equal "a ship", board.board(2, 2).content
   end
 
+  def test_add_ship_to_board
+    board = GameBoard.new(4, 4)
+    board.add_ship()
+
 end

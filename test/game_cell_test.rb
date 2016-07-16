@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/game_cell.rb'
+
 class GameCellTest < Minitest::Test
   def test_game_cell_has_content_and_hit_state
     cell = GameCell.new
@@ -15,6 +16,7 @@ class GameCellTest < Minitest::Test
 
   def test_hit_cell_again_changes_nothing
     cell = GameCell.new
+    assert_equal false, cell.hit?
     cell.hit
     assert_equal true, cell.hit?
     cell.hit
