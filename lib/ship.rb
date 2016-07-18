@@ -7,22 +7,25 @@ class Ship
     @locations = []
   end
 
+  def hit
+    @hp -= 1 if hp > 0
+  end
 
   def set_location(starting_location, ending_location)
     @locations = get_locations(starting_location, ending_location)
   end
 
   def get_locations(start_location, ending_location)
-    intermediate_cells = []
+    locations = []
     range = get_cell_range(start_location, ending_location)
     range.each do |num|
       if same_row?(start_location, ending_location)
-        intermediate_cells << [start_location[0], num]
+        locations << [start_location[0], num]
       elsif same_column?(start_location, ending_location)
-        intermediate_cells << [num, start_location[1]]
+        locations << [num, start_location[1]]
       end
     end
-    intermediate_cells
+    locations
   end
 
   def get_cell_range(start_location, ending_location)

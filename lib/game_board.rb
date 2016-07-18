@@ -3,7 +3,16 @@ require "pry"
 class GameBoard
 
   def initialize(rows, columns)
-    @board = Array.new(rows, Array.new(columns, GameCell.new))
+    @board = Array.new(rows, Array.new(columns))
+    @board.map! do |row|
+      row.map do |element|
+        element = GameCell.new
+      end
+    end
+  end
+
+  def get_board
+    @board
   end
 
   def board(row_index, column_index)
@@ -11,6 +20,16 @@ class GameBoard
       @board[row_index][column_index]
     else
       nil
+    end
+  end
+
+  def hit(row_index, column_index)
+    target_cell = board(row_index, column_index)
+    unless target_cell.hit?
+      target_cell.hit
+      if target_cell.content.is_a?(Ship)
+        target_cell.content.hit
+      end
     end
   end
 
@@ -22,5 +41,11 @@ class GameBoard
     end
   end
 
-  
+  def add_ship(ship, start_location, ending_location)
+    ship.set_location(start_location, ending_location)
+    ship.locations.each do |row, column|
+      add_to_cell(row, column, ship)
+    end
+  end
+
 end

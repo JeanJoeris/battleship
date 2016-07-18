@@ -36,4 +36,14 @@ class ShipTest < Minitest::Test
     assert_equal [[0, 0], [0, 1], [0,2]], ship.locations
   end
 
+  def test_hit_ship_decreases_hp
+    ship = Ship.new(2)
+    ship.hit
+    assert_equal 1, ship.hp
+    ship.hit
+    assert_equal 0, ship.hp
+    ship.hit
+    assert_equal 0, ship.hp
+  end
+
 end
