@@ -24,8 +24,8 @@ class ShipTest < Minitest::Test
 
   def test_same_column
     ship = Ship.new(3)
-    start_location = [4,3]
-    ending_location = [2,3]
+    start_location = [0,0]
+    ending_location = [2,0]
     assert_equal true, ship.same_column?(start_location, ending_location)
   end
 

@@ -15,7 +15,7 @@ class GameBoard
     @board
   end
 
-  def board(row_index, column_index)
+  def cell(row_index, column_index)
     if row_index < @board.count
       @board[row_index][column_index]
     else
@@ -24,7 +24,7 @@ class GameBoard
   end
 
   def hit(row_index, column_index)
-    target_cell = board(row_index, column_index)
+    target_cell = cell(row_index, column_index)
     unless target_cell.hit?
       target_cell.hit
       if target_cell.content.is_a?(Ship)
@@ -35,7 +35,7 @@ class GameBoard
 
   def add_to_cell(row_index, column_index, content)
     if row_index < @board.count && column_index < @board[0].count
-      board(row_index, column_index).add(content)
+      cell(row_index, column_index).add(content)
     else
       nil
     end
