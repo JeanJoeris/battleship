@@ -76,6 +76,10 @@ class GameBoardTest < Minitest::Test
     assert_equal 1, ship.hp
   end
 
+  def test_knows_locations_of_shots
+    
+  end
+
   # def test_board_has_ship_count
   #   board = GameBoard.new(4,4)
   #   ship_1 = Ship.new(3)
