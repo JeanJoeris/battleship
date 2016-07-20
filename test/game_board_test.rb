@@ -42,7 +42,7 @@ class GameBoardTest < Minitest::Test
   def test_add_ship_to_board
     board = GameBoard.new(4, 4)
     ship = Ship.new(3)
-    board.add_ship(ship, [1,3], [3,3])
+    board.add_ship(ship, [1,3], [2,3], [3,3])
     assert_equal ship, board.cell(1,3).content
     assert_equal ship, board.cell(2,3).content
     assert_equal ship, board.cell(3,3).content
@@ -51,7 +51,7 @@ class GameBoardTest < Minitest::Test
   def test_hit_ship_on_board
     board = GameBoard.new(4, 4)
     ship = Ship.new(3)
-    board.add_ship(ship, [1,3], [3,3])
+    board.add_ship(ship, [1,3], [2,3], [3,3])
     board.hit(1,3)
     assert_equal true, board.cell(1,3).hit?
     assert_equal 2, ship.hp
@@ -66,7 +66,7 @@ class GameBoardTest < Minitest::Test
   def test_cannot_hit_same_ship_square_twice
     board = GameBoard.new(4, 4)
     ship = Ship.new(3)
-    board.add_ship(ship, [1,3], [3,3])
+    board.add_ship(ship, [1,3], [2,3], [3,3])
     board.hit(2,3)
     assert_equal 2, ship.hp
     board.hit(2,3)
@@ -75,16 +75,5 @@ class GameBoardTest < Minitest::Test
     board.hit(1,3)
     assert_equal 1, ship.hp
   end
-
-  def test_knows_locations_of_shots
-    
-  end
-
-  # def test_board_has_ship_count
-  #   board = GameBoard.new(4,4)
-  #   ship_1 = Ship.new(3)
-  #   ship_2 = Ship.new(4)
-  #   board.add_ship
-  # end
 
 end

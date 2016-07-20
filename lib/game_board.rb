@@ -41,9 +41,8 @@ class GameBoard
     end
   end
 
-  def add_ship(ship, start_location, ending_location)
-    ship.set_location(start_location, ending_location)
-    ship.locations.each do |row, column|
+  def add_ship(ship, *locations)
+    locations.each do |row, column|
       add_to_cell(row, column, ship)
     end
   end
