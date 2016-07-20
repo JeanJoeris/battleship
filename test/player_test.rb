@@ -11,10 +11,25 @@ class PlayerTest < Minitest::Test
     assert_equal board, player.board
   end
 
+  def test_hit
+    board = GameBoard.new(4,4)
+    player = Player.new(board)
+    player.hit(player.board, 0, 0)
+    assert_equal true, player.board.cell(0,0).hit?
+  end
+
+  def test_hit_another_board
+    board = GameBoard.new(4,4)
+    opponent_board = GameBoard.new(4,4)
+    player = Player.new(board)
+    player.hit(opponent_board, 0, 0)
+    assert_equal true, opponent_board.cell(0,0).hit?
+  end
+
   def test_player_has_miss_log
     board = GameBoard.new(4,4)
     player = Player.new(board)
-    player.hit(0,0)
+    player.hit(player.board, 0,0)
     assert_equal [[0,0]], player.miss_history
   end
 
@@ -23,10 +38,19 @@ class PlayerTest < Minitest::Test
     player = Player.new(board)
     ship = Ship.new(1)
     board.add_ship(ship, [0,0])
-    player.hit(0,0)
-    player.hit(1,1)
+    player.hit(player.board, 0,0)
+    player.hit(player.board, 1,1)
     assert_equal [[0,0]], player.hit_history
     assert_equal [[1,1]], player.miss_history
+  end
+
+  def test_cannot_hit_same_square_again
+    board = GameBoard.new(4,4)
+    player = Player.new(board)
+    player.hit(player.board, 0,0)
+    player.hit(player.board, 0,0)
+    player.hit(player.board, 1,1)
+    assert_equal [[0,0], [1,1]], player.miss_history
   end
 
   def test_has_ship_log
@@ -60,10 +84,10 @@ class PlayerTest < Minitest::Test
     ship = Ship.new(2)
     ship_2 = Ship.new(3)
     player.add_ship(ship, [1,1], [1,2])
-    player.add_ship(ship_2, [2,1], [2,2], [2,3])
-    player.hit(2,1)
-    player.hit(2,2)
-    player.hit(0,0)
+    player.add_ship(ship_2, [2,1], [2,3])
+    player.hit(player.board, 2,1)
+    player.hit(player.board, 2,2)
+    player.hit(player.board, 0,0)
     assert_equal 2, ship.hp
     assert_equal 2, player.ship_log.first.hp
     assert_equal 1, ship_2.hp

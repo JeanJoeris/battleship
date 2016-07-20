@@ -44,6 +44,7 @@ class GameBoard
   def add_ship(ship, *locations)
     locations.each do |row, column|
       add_to_cell(row, column, ship)
+      ship.locations << [row, column]
     end
   end
 

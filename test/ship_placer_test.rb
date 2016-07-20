@@ -99,6 +99,14 @@ class ShipPlacerTest < Minitest::Test
     assert_equal ship, board.cell(0,2).content
   end
 
+  def test_place_ship_updates_ship_locations
+    board = GameBoard.new(4,4)
+    ship = Ship.new(3)
+    ship_placer = ShipPlacer.new(board)
+    ship_placer.place_ship(ship, [0,2], [0,0])
+    assert_equal [[0,0], [0,1], [0,2]], ship.locations
+  end
+
   def test_place_invalid_ship
     board = GameBoard.new(4,4)
     ship = Ship.new(3)
