@@ -16,13 +16,16 @@ class Player
   end
 
   def hit(board, row, column)
-    unless previous_shot?(row, column)
+    unless previous_shot?(row, column) || !board.cell(row, column)
       board.hit(row, column)
       if board.cell(row, column).content
         @hit_history << [row, column]
+        # puts "hit on #{row}, #{column}"
       else
         @miss_history << [row, column]
+        # puts "miss on #{row}, #{column}"
       end
+      [row, column]
     end
   end
 
@@ -33,7 +36,7 @@ class Player
 
   def add_ship(ship, start_location, ending_location)
     placed_locations =
-    @ship_placer.place_ship(ship, start_location, ending_location)
+     @ship_placer.place_ship(ship, start_location, ending_location)
     @ship_log << ship if placed_locations != []
   end
 

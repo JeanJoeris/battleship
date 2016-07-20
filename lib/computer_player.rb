@@ -16,8 +16,9 @@ class ComputerPlayer < Player
     initial_shot_count = (@hit_history + @miss_history).count
     board_size = @board.get_board.count
     while (@hit_history + @miss_history).count == initial_shot_count
-      hit(board, rand(board_size), rand(board_size))
+      shot_location = hit(board, rand(board_size), rand(board_size))
     end
+    shot_location
   end
 
 

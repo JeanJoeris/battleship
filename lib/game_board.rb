@@ -25,7 +25,7 @@ class GameBoard
 
   def hit(row_index, column_index)
     target_cell = cell(row_index, column_index)
-    unless target_cell.hit?
+    if !!target_cell && !target_cell.hit?
       target_cell.hit
       if target_cell.content
         target_cell.content.hit

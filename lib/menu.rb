@@ -1,3 +1,5 @@
+require './lib/game'
+
 class Menu
 
   def initialize
@@ -22,7 +24,17 @@ class Menu
   end
 
   def play
-    puts "getting a game ready"
+    puts "what difficulty? (e)asy, (m)edium, or (h)ard?"
+    difficulty_select = gets.chomp
+    if difficulty_select == "m"
+      game = Game.new("medium")
+    elsif difficulty_select == "h"
+      game = Game.new("hard")
+    else
+      game = Game.new("easy")
+    end
+    game.main_loop
+    puts "Thanks for playing, chose p, i or q"
   end
 
   def instructions
@@ -35,5 +47,5 @@ class Menu
 
 end
 
-# menu = Menu.new
-# menu.main_loop
+menu = Menu.new
+menu.main_loop
