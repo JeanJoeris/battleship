@@ -114,7 +114,7 @@ module Messages
     gets
   end
 
-  def game_over_text(human, counter)
+  def game_over_text(human, counter, timer)
     puts "\n\n" + "   Game over!  ".center(25, "-")
     if human.ship_log.count == 0
       puts "\n\n\nYour fleet has been devoured by "\
@@ -127,7 +127,7 @@ module Messages
         "\nA winner is you!"\
         "\nYour exploits will be forever celebrated, "\
         "in ports across the ocean of nil."\
-        "\n it took you #{counter} shots"
+        "\n it took you #{counter} shots and #{(Time.now-timer).round(0)} seconds"
     end
   end
 end

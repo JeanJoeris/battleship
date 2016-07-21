@@ -21,6 +21,7 @@ class Game
     @human_grid_drawer = GridDrawer.new(size)
     @converter = BoardPosToIndex.new
     @counter = 1
+    @timer = Time.new
   end
 
   def main_loop
@@ -30,7 +31,7 @@ class Game
       render_boards(@human, @computer)
       turn_sequence
     end
-    game_over_text(@human, @counter)
+    game_over_text(@human, @counter, @timer)
   end
 
   def add_starting_ships
