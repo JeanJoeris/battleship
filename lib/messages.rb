@@ -1,19 +1,21 @@
 require './lib/grid_drawer'
 require './lib/board_pos_to_index'
 require 'pry'
+require 'colorize'
 
 module Messages
 
   def game_open_text
+    # generated with www.ascii-art-generator.org
     puts "Welcome to...\n"
     sleep(2)
-    puts "\n######                                                          ###\n"\
-         "#     #   ##   ##### ##### #      ######  ####  #    # # #####  ###\n"\
-         "#     #  #  #    #     #   #      #      #      #    # # #    # ###\n"\
-         "######  #    #   #     #   #      #####   ####  ###### # #    #  # \n"\
-         "#     # ######   #     #   #      #           # #    # # #####     \n"\
-         "#     # #    #   #     #   #      #      #    # #    # # #      ###\n"\
-         "######  #    #   #     #   ###### ######  ####  #    # # #      ###\n"
+    puts "\n\t######                                                          ###\n"\
+         "\t#     #   ##   ##### ##### #      ######  ####  #    # # #####  ###\n"\
+         "\t#     #  #  #    #     #   #      #      #      #    # # #    # ###\n"\
+         "\t######  #    #   #     #   #      #####   ####  ###### # #    #  # \n"\
+         "\t#     # ######   #     #   #      #           # #    # # #####     \n"\
+         "\t#     # #    #   #     #   #      #      #    # #    # # #      ###\n"\
+         "\t######  #    #   #     #   ###### ######  ####  #    # # #      ###\n".colorize(:background => :blue)
   end
 
   def instructions
