@@ -88,7 +88,7 @@ class GameTest < Minitest::Test
   end
 
   def test_main_loop
-    # skip # because it requires human interaction
+    skip # because it requires human interaction
     game = Game.new("easy")
     game.main_loop
     assert_respond_to game, :main_loop

@@ -11,15 +11,19 @@ class Menu
     puts "Would you like to (p)lay, get (i)nstructions, or (q)uit?\n"
     until @has_quit do
       input = gets.chomp
-      if input == "p" || input ==  "play"
-        play
-      elsif input == "i" || input ==  "instructions"
-        instructions
-      elsif input == "q" || input =="quit"
-        return @has_quit = true
-      else
-        puts "please chose again"
-      end
+      select_input(input)
+    end
+  end
+
+  def select_input(input)
+    if input == "p" || input ==  "play"
+      play
+    elsif input == "i" || input ==  "instructions"
+      instructions
+    elsif input == "q" || input =="quit"
+      return @has_quit = true
+    else
+      puts "please chose again"
     end
   end
 
@@ -34,7 +38,7 @@ class Menu
       game = Game.new("easy")
     end
     game.main_loop
-    puts "Thanks for playing, chose p, i or q"
+    puts "Thanks for playing, chose (p)lay, (i)nstructions or (q)uit"
   end
 
   def instructions
@@ -46,6 +50,3 @@ class Menu
   end
 
 end
-
-menu = Menu.new
-menu.main_loop

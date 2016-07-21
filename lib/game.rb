@@ -18,6 +18,7 @@ class Game
     @comp_grid_drawer = GridDrawer.new(size)
     @human_grid_drawer = GridDrawer.new(size)
     @converter = BoardPosToIndex.new
+    @counter = 1
   end
 
   def get_size_by_difficulty(difficulty)
@@ -69,8 +70,8 @@ class Game
     end
   end
 
-  def turn_sequence(counter)
-    puts "this is the #{counter} round"
+  def turn_sequence
+    puts "this is round #{@counter}"
     human_shot = human.enter_legal_shot(computer.board)
     comp_shot = computer.hit_randomly(human.board)
     puts "You shot at #{@converter.convert_back(human_shot)}"
@@ -80,24 +81,16 @@ class Game
     else
       puts "And it missed."
     end
-    counter += 1
+    @counter += 1
+    puts "Press any key to continue and see the grids"
+    gets
   end
 
   def main_loop
     add_starting_ships
-    counter = 0
     until game_over?
-      turn_sequence(counter)
-      @comp_grid_drawer.read(@human)
-      @human_grid_drawer.read(@computer)
-      puts "This is the computer's grid"
-      @comp_grid_drawer.grid.each do |row|
-        puts row.join
-      end
-      puts "\nThis is the human's grid"
-      @human_grid_drawer.grid.each do |row|
-        puts row.join
-      end
+      turn_sequence
+      render_boards
     end
     puts "\n\n Game over"
     if human.ship_log.count == 0
@@ -105,6 +98,20 @@ class Game
     else
       puts "A winner is you!"
     end
+  end
+
+  def render_boards
+    @comp_grid_drawer.read(@human)
+    @human_grid_drawer.read(@computer)
+    puts "This is the computer's grid"
+    @comp_grid_drawer.grid.each do |row|
+      puts row.join
+    end
+    puts "\nThis is the human's grid"
+    @human_grid_drawer.grid.each do |row|
+      puts row.join
+    end
+    puts "\n\n\n"
   end
 
 end
