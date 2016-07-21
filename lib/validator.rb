@@ -54,9 +54,7 @@ class Validator
         false
       end
     end
-    answers.inject do |final_answer, single_answer|
-      final_answer || single_answer
-    end
+    answers.inject(:|)
   end
 
   def shares_row_or_column?(ship, start_location, ending_location)

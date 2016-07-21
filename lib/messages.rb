@@ -4,6 +4,18 @@ require 'pry'
 
 module Messages
 
+  def game_open_text
+    puts "Welcome to...\n"
+    sleep(2)
+    puts "\n######                                                          ###\n"\
+         "#     #   ##   ##### ##### #      ######  ####  #    # # #####  ###\n"\
+         "#     #  #  #    #     #   #      #      #      #    # # #    # ###\n"\
+         "######  #    #   #     #   #      #####   ####  ###### # #    #  # \n"\
+         "#     # ######   #     #   #      #           # #    # # #####     \n"\
+         "#     # #    #   #     #   #      #      #    # #    # # #      ###\n"\
+         "######  #    #   #     #   ###### ######  ####  #    # # #      ###\n"
+  end
+
   def instructions
     puts "\n\nThis is the game of Battleship.\n"\
       "You and your opponent place ships on a grid, "\

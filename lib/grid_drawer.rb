@@ -1,3 +1,5 @@
+require 'colorize'
+
 class GridDrawer
   attr_reader :grid
 
@@ -45,12 +47,11 @@ class GridDrawer
   end
 
   def read(player)
-    # binding.pry
     player.miss_history.each do |row, column|
-      @grid[row + 2][column + 1][1] = "M"
+      @grid[row + 2][column + 1] = " M ".colorize(:background => :blue)
     end
     player.hit_history.each do |row, column|
-      @grid[row + 2][column + 1][1] = "H"
+      @grid[row + 2][column + 1] = " H ".colorize(:background => :red)
     end
   end
 

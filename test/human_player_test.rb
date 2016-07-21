@@ -16,4 +16,20 @@ class HumanPlayerTest < Minitest::Test
     assert_respond_to human, :enter_legal_shot
   end
 
+  def test_is_valid_input
+    board = GameBoard.new(4,4)
+    human = HumanPlayer.new(board)
+    assert_equal true, human.is_valid_input?("a1")
+  end
+
+  def test_invalid_input_is_invalid
+    board = GameBoard.new(4,4)
+    human = HumanPlayer.new(board)
+    assert_equal false, human.is_valid_input?("foo")
+    assert_equal false, human.is_valid_input?(" ")
+    assert_equal false, human.is_valid_input?("")
+    assert_equal false, human.is_valid_input?("aa")
+    assert_equal false, human.is_valid_input?("11")
+  end
+
 end

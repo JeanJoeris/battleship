@@ -9,7 +9,7 @@ class Menu
   end
 
   def main_loop
-    puts "Welcome to Battleship!\n"
+    game_open_text
     puts "Would you like to (p)lay, get (i)nstructions, or (q)uit?\n"
     until @has_quit do
       input = gets.chomp

@@ -17,9 +17,24 @@ class HumanPlayer < Player
   def attempt_to_add_ship(ship)
     converter = BoardPosToIndex.new
     ship_locations = gets.chomp.gsub(",", " ").split(" ")
-    converted_start = converter.convert(ship_locations.first)
-    converted_end   = converter.convert(ship_locations.last)
-    add_ship(ship, converted_start, converted_end)
+    if is_valid_input?(ship_locations.first, ship_locations.last)
+      converted_start = converter.convert(ship_locations.first)
+      converted_end   = converter.convert(ship_locations.last)
+      add_ship(ship, converted_start, converted_end)
+    else
+      puts "Invalid syntax, please enter a pair of coordinates"
+    end
+  end
+
+  def is_valid_input?(*locations)
+    validations = locations.map do |location|
+      location =~ /[a-zA-Z]\d/
+    end
+    if validations.include?(nil)
+      false
+    else
+      true
+    end
   end
 
   def enter_legal_shot(board)
@@ -28,8 +43,12 @@ class HumanPlayer < Player
     while (@miss_history + @hit_history).count == initial_shot_count
       puts "What is your target?"
       target = gets.chomp
-      converted_target = converter.convert(target)
-      shot_location = hit(board, converted_target.first, converted_target.last)
+      if is_valid_input?(target)
+        converted_target = converter.convert(target)
+        shot_location = hit(board, converted_target.first, converted_target.last)
+      else
+        puts "Invalid syntax, please enter a coordinate"
+      end
     end
     shot_location
   end

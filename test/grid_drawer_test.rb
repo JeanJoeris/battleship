@@ -95,7 +95,8 @@ class GridDrawerTest < Minitest::Test
   def test_read_game_state_to_drawing
     expected_rows = ["===============",
                      ".  1  2  3  4  ",
-                     "A  M           ",
+                     "A " +
+                     " M ".colorize(:background => :blue) + "          ",
                      "B              ",
                      "C              ",
                      "D              "
@@ -112,10 +113,13 @@ class GridDrawerTest < Minitest::Test
   def test_reading_multiple_hit_game
     expected_rows = ["===============",
                      ".  1  2  3  4  ",
-                     "A  M           ",
-                     "B        M     ",
+                     "A " + " M ".colorize(:background => :blue) +
+                      "          ",
+                     "B       " +
+                      " M ".colorize(:background => :blue) + "    ",
                      "C              ",
-                     "D           M  ",
+                     "D          " +
+                     " M ".colorize(:background => :blue) + " ",
                      "==============="
                     ]
     game = Game.new
@@ -132,10 +136,12 @@ class GridDrawerTest < Minitest::Test
   def test_reading_game_with_ships_and_hits
     expected_rows = ["===============",
                      ".  1  2  3  4  ",
-                     "A  H     H     ",
-                     "B        M     ",
+                     "A " + " H ".colorize(:background => :red) +
+                     "   " + " H ".colorize(:background => :red) + "    ",
+                     "B       " +
+                      " M ".colorize(:background => :blue) + "    ",
                      "C              ",
-                     "D           M  ",
+                     "D          " + " M ".colorize(:background => :blue) + " ",
                      "==============="
                     ]
     game = Game.new

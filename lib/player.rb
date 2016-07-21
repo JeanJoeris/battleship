@@ -20,10 +20,8 @@ class Player
       board.hit(row, column)
       if board.cell(row, column).content
         @hit_history << [row, column]
-        # puts "hit on #{row}, #{column}"
       else
         @miss_history << [row, column]
-        # puts "miss on #{row}, #{column}"
       end
       [row, column]
     end
