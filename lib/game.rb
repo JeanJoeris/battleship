@@ -3,8 +3,10 @@ require './lib/human_player'
 require './lib/computer_player'
 require './lib/grid_drawer'
 require './lib/board_pos_to_index'
+require './lib/messages'
 
 class Game
+  include Messages
   attr_reader :human,
               :computer
 
@@ -21,14 +23,29 @@ class Game
     @counter = 1
   end
 
-  def get_size_by_difficulty(difficulty)
-    if difficulty.downcase == "medium"
-      8
-    elsif difficulty.downcase == "hard"
-      12
-    else
-      4
+  def main_loop
+    game_introduction_text(@difficulty)
+    add_starting_ships
+    until game_over?
+      render_boards(@human, @computer)
+      turn_sequence
     end
+    game_over_text(@human, @counter)
+  end
+
+  def add_starting_ships
+    starting_human_ships.each_with_index do |ship, index|
+      human.add_legal_ship(ship)
+      computer.add_ship_randomly(starting_computer_ships[index])
+    end
+  end
+
+  def turn_sequence
+    puts "this is round #{@counter}"
+    human_shot = human.enter_legal_shot(computer.board)
+    comp_shot = computer.hit_randomly(human.board)
+    shot_text(human_shot, comp_shot, @human, @computer)
+    @counter += 1
   end
 
   def game_over?
@@ -61,57 +78,6 @@ class Game
       default_ships << Ship.new(5)
     end
     default_ships
-  end
-
-  def add_starting_ships
-    starting_human_ships.each_with_index do |ship, index|
-      human.add_legal_ship(ship)
-      computer.add_ship_randomly(starting_computer_ships[index])
-    end
-  end
-
-  def turn_sequence
-    puts "this is round #{@counter}"
-    human_shot = human.enter_legal_shot(computer.board)
-    comp_shot = computer.hit_randomly(human.board)
-    puts "You shot at #{@converter.convert_back(human_shot)}"
-    puts "The computer shot at #{@converter.convert_back(comp_shot)}"
-    if computer.hit_history.include?(comp_shot)
-      puts "And it was a hit!"
-    else
-      puts "And it missed."
-    end
-    @counter += 1
-    puts "Press any key to continue and see the grids"
-    gets
-  end
-
-  def main_loop
-    add_starting_ships
-    until game_over?
-      turn_sequence
-      render_boards
-    end
-    puts "\n\n Game over"
-    if human.ship_log.count == 0
-      puts "You lost, too bad..."
-    else
-      puts "A winner is you!"
-    end
-  end
-
-  def render_boards
-    @comp_grid_drawer.read(@human)
-    @human_grid_drawer.read(@computer)
-    puts "This is the computer's grid"
-    @comp_grid_drawer.grid.each do |row|
-      puts row.join
-    end
-    puts "\nThis is the human's grid"
-    @human_grid_drawer.grid.each do |row|
-      puts row.join
-    end
-    puts "\n\n\n"
   end
 
 end

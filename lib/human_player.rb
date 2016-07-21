@@ -7,7 +7,7 @@ class HumanPlayer < Player
   def add_legal_ship(ship)
     initial_ship_count = @ship_log.count
     puts "\nyou are placing a ship of length #{ship.hp}"
-    puts "Please input a row letter and column number (e.x. a2, b4)\n"
+    puts "Please input a pair of coordinates (e.x. a1 a#{ship.hp})\n"
     while @ship_log.count == initial_ship_count
       attempt_to_add_ship(ship)
     end
@@ -16,12 +16,9 @@ class HumanPlayer < Player
 
   def attempt_to_add_ship(ship)
     converter = BoardPosToIndex.new
-    puts "What is your choice of starting square?"
-    ship_start = gets.chomp
-    puts "What is your choice of ending square?"
-    ship_end   = gets.chomp
-    converted_start = converter.convert(ship_start)
-    converted_end   = converter.convert(ship_end)
+    ship_locations = gets.chomp.gsub(",", " ").split(" ")
+    converted_start = converter.convert(ship_locations.first)
+    converted_end   = converter.convert(ship_locations.last)
     add_ship(ship, converted_start, converted_end)
   end
 

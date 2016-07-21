@@ -45,8 +45,6 @@ class ShipPlacer
     misordered_row || misordered_column
   end
 
-
-
   def get_cell_range(start_location, ending_location)
     if same_row?(start_location, ending_location)
       range = (start_location[1]..ending_location[1])
@@ -64,34 +62,3 @@ class ShipPlacer
   end
 
 end
-
-# this is a proof of concept of a menu to force
-# player to keep placing until legal placement
-#
-# board = GameBoard.new(4,4)
-# ship = Ship.new(3)
-# ship_placer = ShipPlacer.new(board)
-# ship_placement = []
-# while ship_placement == [] do
-#   input_1 = [rand(4), rand(4)]
-#   input_2 = [rand(4), rand(4)]
-  # puts "where shall I place your ship?\n"
-  # puts "first square is? >"
-  # input_1 = gets.chomp.split(",")
-  # input_1.map! do |num|
-  #   num = num.to_i
-  # end
-  # puts "second square is? >"
-  # input_2 = gets.chomp.split(",")
-  # input_2.map! do |num|
-  #   num = num.to_i
-  # end
-#   puts
-#   p input_1
-#   puts
-#   p input_2
-#   puts
-#   ship_placement = ship_placer.place_ship(ship, input_1, input_2)
-# end
-# puts "thank you meatbag"
-# p board.get_board
